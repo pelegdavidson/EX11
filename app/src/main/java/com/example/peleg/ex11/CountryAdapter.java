@@ -2,12 +2,17 @@ package com.example.peleg.ex11;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
+import android.widget.ListView;
 import android.widget.TextView;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +43,10 @@ public class CountryAdapter extends ArrayAdapter<Country> {
         }
 
     }
+    public void removef(int pos){
+        remove(getItem(pos));
+        allCountroies.remove(pos);
+    }
     private static InputStream openAssetDataStream(Context context){
         AssetManager assetManager = context.getAssets();
         InputStream in =null;
@@ -46,40 +55,27 @@ public class CountryAdapter extends ArrayAdapter<Country> {
         } catch (IOException e) {e.printStackTrace();}
         return in;
     }
+
     @Override
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View listItem = convertView;
-
         if(listItem == null)
-
             listItem = LayoutInflater.from(getContext()).inflate(R.layout.rowitem,parent,false);
-
-
-        Country currCountry = allCountroies.get(position);
-
+        Country currCountry = getItem(position);
         int resId = parent.getResources().getIdentifier(currCountry.getFlag(), "drawable", getContext().getPackageName());
-
-
         ImageView image = (ImageView)listItem.findViewById(R.id.imageView);
-
         image.setImageResource(resId);
-
-
         TextView name = (TextView) listItem.findViewById(R.id.name);
-
         name.setText(currCountry.getName());
-
-
         TextView release = (TextView) listItem.findViewById(R.id.info);
-
-        release.setText(currCountry.getDetails());
-
-
+        release.setText(currCountry.getShorty());
+        listItem.setTag(currCountry.getDetails());
         return listItem;
 
     }
+
 
 }
 
