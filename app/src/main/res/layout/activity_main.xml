@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.peleg.ex11.MainActivity">
 
+    <Toolbar
+        android:id="@+id/tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_dark"
+        android:theme="@android:style/Theme.WithActionBar" />
+
     <fragment
+        android:layout_below="@+id/tb"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/FragA"

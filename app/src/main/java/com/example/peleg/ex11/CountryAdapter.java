@@ -44,8 +44,9 @@ public class CountryAdapter extends ArrayAdapter<Country> {
 
     }
     public void removef(int pos){
-        remove(getItem(pos));
-        allCountroies.remove(pos);
+        Country c = getItem(pos);
+        remove(c);
+
     }
     private static InputStream openAssetDataStream(Context context){
         AssetManager assetManager = context.getAssets();
