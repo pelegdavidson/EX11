@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:id="@+id/check"
+        android:defaultValue="false"
+        android:key="tosavelist"
+        android:title="Remember countries shown" />
+
+    <com.example.peleg.ex11.MyEditTextPreference
+        android:summary="%s"
+        android:key="yourname"
+        android:title="Name"
+        android:inputType="text"
+        android:maxLength="20"/>
+
+</PreferenceScreen>
