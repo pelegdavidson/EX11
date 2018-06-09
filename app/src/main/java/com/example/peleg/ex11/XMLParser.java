@@ -18,6 +18,7 @@ public class XMLParser {
 	final static String KEY_DETAILS="details";
 
 
+
 	public static ArrayList<Country> parseFromStream(InputStream in){
 		ArrayList<Country> data = null;
 

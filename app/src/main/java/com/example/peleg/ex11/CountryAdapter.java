@@ -1,13 +1,16 @@
 package com.example.peleg.ex11;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import android.widget.ListView;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
 
 import static com.example.peleg.ex11.XMLParser.parseFromStream;
 
@@ -28,13 +32,20 @@ public class CountryAdapter extends ArrayAdapter<Country> {
 
     ArrayList<Country> allCountroies;
 
+
     public CountryAdapter(Context context) {
         super(context, android.R.layout.simple_list_item_1);
         InputStream ips = openAssetDataStream(context);
         this.allCountroies = parseFromStream(ips);
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String del = settings.getString("deletedCountries", "");
+        boolean b =settings.getBoolean("tosavelist", false);
         for (Country country: allCountroies)
         {
-            add(country);
+            if(!b||del.indexOf(country.getName())==-1){
+                add(country);
+            }
         }
         try {
             ips.close();
@@ -45,6 +56,12 @@ public class CountryAdapter extends ArrayAdapter<Country> {
     }
     public void removef(int pos){
         Country c = getItem(pos);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = settings.edit();
+        if(settings.getBoolean("tosavelist",false)){
+            editor.putString("deletedCountries",settings.getString("deletedCountries","")+","+c.getName());
+           editor.commit();
+        }
         remove(c);
 
     }
